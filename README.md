@@ -39,7 +39,7 @@ A simple Flask‑based personal finance app to **track** and **visualize** your 
 
 ```bash
 # 1. Clone repo
-git clone https://github.com/<your‑username>/python-expense-tracker.git
+git clone https://github.com/Tks23-hub/python-expense-tracker.git
 cd python-expense-tracker
 
 # 2. Create & activate venv
