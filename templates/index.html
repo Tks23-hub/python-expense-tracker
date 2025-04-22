@@ -11,6 +11,8 @@ endblock %} {% block content %}
       <th>Description</th>
       <th class="text-end">Amount</th>
       <th></th>
+      <!-- Edit -->
+      <th></th>
       <!-- for the Delete button -->
     </tr>
   </thead>
@@ -21,6 +23,13 @@ endblock %} {% block content %}
       <td>{{ e.category }}</td>
       <td>{{ e.description }}</td>
       <td class="text-end">${{ '%.2f'|format(e.amount) }}</td>
+      <td class="text-center">
+        <a
+          href="{{ url_for('edit_expense', expense_id=e.id) }}"
+          class="btn btn-sm btn-secondary"
+          >Edit</a
+        >
+      </td>
       <td class="text-center">
         <form
           method="post"

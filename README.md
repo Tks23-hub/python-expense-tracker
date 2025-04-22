@@ -24,17 +24,19 @@ A simple Flask‑based personal finance app to **track** and **visualize** your 
   - Routes:
     - `/` → Dashboard (lists expenses + Chart.js bar chart).
     - `/add` → Form to add a new expense.
+    - `/edit/<id>` → Edit an existing expense by ID.
     - `/delete/<id>` → Delete an expense by ID.
     - `/data` → JSON endpoint for chart data.
 
 - **Templates** (`templates/`)
 
   - `base.html` – common layout with Bootstrap & navbar.
-  - `index.html` – dashboard view, Jinja loops, Delete buttons & Chart.js.
-  - `add_expense.html` – form to submit expenses.
+  - `index.html` – dashboard view with Jinja loops, **Edit** & **Delete** buttons & Chart.js.
+  - `add_expense.html` – form to submit new expenses.
+  - `edit_expense.html` – form pre‑populated to update existing expenses.
 
 - **Database**
-  - Ran migrations (`flask db init`, `migrate`, `upgrade`) to create `expenses` table in `expenses.db`.
+  - Ran migrations (`flask db init`, `migrate`, `upgrade`) to create and maintain the `expenses` table in `expenses.db`.
 
 ## How to Run Locally
 
