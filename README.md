@@ -28,19 +28,15 @@ A simple Flask‑based personal finance app to **track** and **visualize** your 
     - `/delete/<id>` → Delete an expense by ID.
     - `/data` → JSON endpoint for (filtered) chart data.
 
-- **Templates** (`templates/`)
-
-  - `base.html` – common layout with Bootstrap & navbar.
-  - `index.html` – dashboard view with:
-    - Filter form (date range & category)
-    - Jinja loops for expenses
-    - **Edit** & **Delete** buttons
-    - Chart.js visualization of filtered data
-  - `add_expense.html` – form to submit new expenses.
-  - `edit_expense.html` – form pre‑populated to update existing expenses.
-
-- **Database**
-  - Ran migrations (`flask db init`, `migrate`, `upgrade`) to create and maintain the `expenses` table in `expenses.db`.
+- **Styling & Interactivity**
+  - Swapped Bootstrap for **Tailwind CSS** (utility‑first styling).
+  - Added **AOS** for smooth scroll animations (`data-aos` attributes).
+  - Integrated **SweetAlert2** for modern modal confirmations.
+  - Used **Alpine.js** for in‑page interactivity and deletion handling (`x-data`, `x-ref`).
+  - Updated templates (`base.html`, `index.html`, `add_expense.html`, `edit_expense.html`) with:
+    - Colored backgrounds, borders, and focus states on inputs.
+    - Gradient buttons and cards with shadows and rounded corners.
+    - Animated reveals and hover effects.
 
 ## How to Run Locally
 
@@ -63,3 +59,9 @@ python -m flask db upgrade
 # 5. Start the server
 python -m flask run
 ```
+
+Open your browser at `http://127.0.0.1:5000/`, then:
+
+1. **Filter** by date range and/or category
+2. **Add**, **edit**, or **delete** expenses
+3. Watch your table and chart update in real‑time.
