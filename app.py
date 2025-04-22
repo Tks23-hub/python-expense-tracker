@@ -13,9 +13,28 @@ migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
-    expenses = Expense.query.order_by(Expense.date.desc()).all()
-    return render_template('index.html', expenses=expenses)
+    
+    q = Expense.query
+    start = request.args.get('start_date')
+    end   = request.args.get('end_date')
+    cat   = request.args.get('category')
+    if start:
+        q = q.filter(Expense.date >= start)
+    if end:
+        q = q.filter(Expense.date <= end)
+    if cat:
+        q = q.filter(Expense.category == cat)
 
+    expenses = q.order_by(Expense.date.desc()).all()
+    categories = [c[0] for c in db.session.query(Expense.category).distinct().all()]
+    return render_template(
+        'index.html',
+        expenses=expenses,
+        categories=categories,
+        start_date=start,
+        end_date=end,
+        selected_category=cat
+    )
 @app.route('/add', methods=['GET', 'POST'])
 def add_expense():
     if request.method == 'POST':
@@ -31,10 +50,24 @@ def add_expense():
 
 @app.route('/data')
 def data():
-    results = db.session.query(
+    
+    q = Expense.query
+    start = request.args.get('start_date')
+    end   = request.args.get('end_date')
+    cat   = request.args.get('category')
+
+    if start:
+        q = q.filter(Expense.date >= start)
+    if end:
+        q = q.filter(Expense.date <= end)
+    if cat:
+        q = q.filter(Expense.category == cat)
+
+    results = q.with_entities(
         Expense.category,
         db.func.sum(Expense.amount)
     ).group_by(Expense.category).all()
+
     categories = [r[0] for r in results]
     totals     = [r[1] for r in results]
     return jsonify(categories=categories, totals=totals)
