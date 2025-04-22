@@ -39,5 +39,15 @@ def data():
     totals     = [r[1] for r in results]
     return jsonify(categories=categories, totals=totals)
 
+@app.route('/delete/<int:expense_id>', methods=['POST'])
+def delete_expense(expense_id):
+    exp = Expense.query.get_or_404(expense_id)
+    db.session.delete(exp)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

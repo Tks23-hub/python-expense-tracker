@@ -24,12 +24,13 @@ A simple Flask‑based personal finance app to **track** and **visualize** your 
   - Routes:
     - `/` → Dashboard (lists expenses + Chart.js bar chart).
     - `/add` → Form to add a new expense.
+    - `/delete/<id>` → Delete an expense by ID.
     - `/data` → JSON endpoint for chart data.
 
 - **Templates** (`templates/`)
 
   - `base.html` – common layout with Bootstrap & navbar.
-  - `index.html` – dashboard view, Jinja loops, Chart.js.
+  - `index.html` – dashboard view, Jinja loops, Delete buttons & Chart.js.
   - `add_expense.html` – form to submit expenses.
 
 - **Database**

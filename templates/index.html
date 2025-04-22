@@ -10,6 +10,8 @@ endblock %} {% block content %}
       <th>Category</th>
       <th>Description</th>
       <th class="text-end">Amount</th>
+      <th></th>
+      <!-- for the Delete button -->
     </tr>
   </thead>
   <tbody>
@@ -19,6 +21,15 @@ endblock %} {% block content %}
       <td>{{ e.category }}</td>
       <td>{{ e.description }}</td>
       <td class="text-end">${{ '%.2f'|format(e.amount) }}</td>
+      <td class="text-center">
+        <form
+          method="post"
+          action="{{ url_for('delete_expense', expense_id=e.id) }}"
+          onsubmit="return confirm('Delete this expense?');"
+        >
+          <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
