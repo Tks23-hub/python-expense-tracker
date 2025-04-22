@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block title %}Dashboard – Expense Tracker{%
+endblock %} {% block content %}
+<h1 class="mb-4">Your Expenses</h1>
+
+{% if expenses %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th class="text-end">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in expenses %}
+    <tr>
+      <td>{{ e.date.strftime('%Y-%m-%d') }}</td>
+      <td>{{ e.category }}</td>
+      <td>{{ e.description }}</td>
+      <td class="text-end">${{ '%.2f'|format(e.amount) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="text-muted">
+  No expenses recorded yet.
+  <a href="{{ url_for('add_expense') }}">Add one now.</a>
+</p>
+{% endif %}
+
+<h2 class="mt-5">Spending by Category</h2>
+<canvas id="expenseChart" height="100"></canvas>
+{% endblock %} {% block scripts %}
+<script>
+  fetch('{{ url_for("data") }}')
+    .then((res) => res.json())
+    .then((data) => {
+      const ctx = document.getElementById("expenseChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: data.categories,
+          datasets: [
+            {
+              label: "Total Spent",
+              data: data.totals,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true },
+          },
+        },
+      });
+    });
+</script>
+{% endblock %}
