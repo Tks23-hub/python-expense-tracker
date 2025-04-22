@@ -1,0 +1,12 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# SQLite database (your private data)
+expenses.db
+
+# Migration scripts (can be regenerated)
+migrations/
+
+# Environment files
+.env
